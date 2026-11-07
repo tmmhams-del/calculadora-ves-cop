@@ -1,7 +1,7 @@
 {
-  "name": "Calculadora Bolívares a Pesos",
-  "short_name": "VES a COP",
-  "description": "Convierte bolívares venezolanos a pesos colombianos usando referencias BCV y TRM.",
+  "name": "Calculadora VES · USD · COP",
+  "short_name": "VES Calc",
+  "description": "Conversor de bolívares a dólares y pesos colombianos",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -9,7 +9,17 @@
   "background_color": "#0b1220",
   "theme_color": "#101827",
   "icons": [
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }

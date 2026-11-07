@@ -2,101 +2,98 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101827">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-192.png"><meta name="description" content="Calculadora local de bolívares venezolanos a pesos colombianos usando BCV y TRM.">
-<title>VES → COP | Calculadora</title>
+<meta name="theme-color" content="#101827"><meta name="description" content="Calculadora de bolívares a dólares y pesos colombianos.">
+<link rel="manifest" href="./manifest.webmanifest"><title>VES · Calculadora</title>
 <style>
-:root{color-scheme:dark;--bg:#0b1220;--panel:#121d2e;--panel2:#1a2940;--text:#f3f6fb;--muted:#9eacc0;--line:#2b3a50;--accent:#55d6a0;--blue:#77b7ff;--danger:#ff9a9a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#172b43 0,#0b1220 55%);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);min-height:100vh;padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom)}.wrap{max-width:520px;margin:0 auto;padding:24px 0 36px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.brand{font-size:13px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:700}.pill{font-size:11px;border:1px solid var(--line);border-radius:99px;padding:7px 10px;color:var(--accent)}h1{font-size:27px;line-height:1.1;margin:0 0 7px}.sub{color:var(--muted);font-size:14px;margin:0 0 22px}.card{background:linear-gradient(160deg,#17253a,#111b2b);border:1px solid var(--line);border-radius:22px;padding:19px;margin-bottom:14px;box-shadow:0 14px 40px #0003}.eyebrow{font-size:11px;color:var(--muted);font-weight:750;letter-spacing:.09em;margin-bottom:12px}.input-wrap{display:flex;align-items:center;gap:10px;background:#0c1625;border:1px solid #34465f;border-radius:15px;padding:13px 14px}.currency{font-weight:800;color:var(--accent);font-size:14px;white-space:nowrap}.input-wrap input{min-width:0;width:100%;border:0;outline:0;background:transparent;color:var(--text);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}.hint{color:var(--muted);font-size:12px;margin-top:9px}.result{background:linear-gradient(135deg,#123d37,#142e38);border:1px solid #276957;border-radius:20px;padding:20px;margin:14px 0}.result .eyebrow{color:#a8e9ce}.amount{font-size:clamp(30px,8vw,42px);font-weight:850;letter-spacing:-.04em;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.result small{color:#b4d9ce}.breakdown{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.breakdown:last-child{border:0}.breakdown span{color:var(--muted);font-size:13px}.breakdown strong{font-size:15px;font-variant-numeric:tabular-nums}.rates-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}.rates-head h2{font-size:16px;margin:0}.refresh{border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--text);padding:9px 12px;font-weight:650}.rate{padding:13px 0;border-bottom:1px solid var(--line)}.rate:last-of-type{border:0}.rate-line{display:flex;justify-content:space-between;gap:12px;align-items:center}.rate label{font-size:13px;color:var(--muted)}.rate input{width:145px;max-width:48%;background:#0c1625;border:1px solid #34465f;border-radius:10px;padding:9px;color:var(--text);text-align:right;font-size:15px;font-weight:700}.source{font-size:11px;color:var(--muted);margin-top:6px}.status{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5}.status.error{color:var(--danger)}.actions{display:flex;gap:9px;margin-top:14px}.friday-choice{display:none;margin:12px 0 4px;padding:13px;border:1px solid #6b5630;background:#332914;border-radius:14px}.friday-choice.show{display:block}.friday-choice p{margin:0 0 10px;color:#f2d9a0;font-size:12px;line-height:1.45}.friday-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}.friday-buttons button{border:1px solid #806b3e;border-radius:10px;padding:10px 8px;background:#211d16;color:#f8e9c7;font-size:12px;font-weight:700}.friday-buttons button.active{background:#f0c66e;color:#251b08;border-color:#f0c66e}.friday-caption{font-size:11px;color:#cbb98f;margin-top:8px}.btn{flex:1;border:1px solid var(--line);border-radius:12px;padding:12px;background:#1a2940;color:var(--text);font-weight:700}.btn.primary{background:var(--accent);color:#092016;border-color:var(--accent)}.note{font-size:11px;line-height:1.55;color:var(--muted);padding:5px 3px}.footer{text-align:center;font-size:11px;color:#728198;margin-top:20px}button{cursor:pointer}button:active{transform:scale(.98)}
+:root{color-scheme:dark;--bg:#0b1220;--panel:#121d2e;--panel2:#1a2940;--text:#f3f6fb;--muted:#9eacc0;--line:#2b3a50;--green:#55d6a0;--amber:#f2c66d;--red:#ff9a9a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#172b43 0,#0b1220 58%);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);min-height:100vh;padding:env(safe-area-inset-top) 15px env(safe-area-inset-bottom)}
+main{max-width:540px;margin:auto;padding:22px 0 34px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.brand{font-size:12px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:800}.pill{font-size:11px;border:1px solid var(--line);border-radius:99px;padding:7px 10px;color:var(--green)}
+h1{font-size:27px;line-height:1.1;margin:0 0 6px}.sub{color:var(--muted);font-size:13px;margin:0 0 18px}.card{background:linear-gradient(160deg,#17253a,#111b2b);border:1px solid var(--line);border-radius:20px;padding:17px;margin:12px 0;box-shadow:0 12px 32px #0003}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.mode{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:12px;border-radius:12px;font-weight:700}.mode.active{background:var(--green);color:#092016;border-color:var(--green)}
+.eyebrow{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.1em;margin-bottom:9px}.entry{display:flex;align-items:center;gap:10px;background:#0c1625;border:1px solid #34465f;border-radius:14px;padding:12px}.entry b{color:var(--green)}input{min-width:0;width:100%;border:0;outline:0;background:transparent;color:var(--text);font-size:25px;font-weight:750;font-variant-numeric:tabular-nums}.hint,.meta,.note{color:var(--muted);font-size:11px;line-height:1.5;margin-top:8px}
+.result{background:linear-gradient(135deg,#123d37,#142e38);border:1px solid #276957;border-radius:19px;padding:18px;margin:12px 0}.result .eyebrow{color:#a8e9ce}.big{font-size:clamp(30px,8vw,40px);font-weight:850;letter-spacing:-.04em;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.result small{color:#b4d9ce}
+.secondary{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mini{background:#0c1625;border:1px solid var(--line);border-radius:14px;padding:13px}.mini .value{font-size:21px;font-weight:800;margin-top:5px;font-variant-numeric:tabular-nums}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center}.row strong{font-variant-numeric:tabular-nums}.rate{padding:11px 0;border-bottom:1px solid var(--line)}.rate:last-child{border:0}.status{font-size:11px;line-height:1.5;color:var(--muted);margin-top:12px}.status.error{color:var(--red)}.status.warn{color:var(--amber)}
+button{cursor:pointer}.refresh,.btn{border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--text);padding:10px 12px;font-weight:700}.actions{display:flex;gap:8px;margin-top:12px}.actions button{flex:1}.primary{background:var(--green);color:#092016;border-color:var(--green)}
+.foot{font-size:10px;line-height:1.55;color:#8291a7;margin:18px 3px}.tag{font-size:10px;color:var(--green);font-weight:800}.badge{font-size:10px;border:1px solid var(--line);padding:5px 8px;border-radius:99px;color:var(--muted)}
+.friday{display:none;background:#332914;border:1px solid #806b3e;border-radius:13px;padding:12px;margin-top:10px}.friday.show{display:block}.friday p{font-size:11px;color:#f2d9a0;margin:0 0 9px}.friday button{width:100%;margin-top:6px}
 </style></head>
-<body><main class="wrap">
-<div class="top"><div class="brand">Conversor de divisas</div><div class="pill" id="connection">Preparando…</div></div>
-<h1>Bolívares a pesos</h1><p class="sub">Una sola entrada. Dos conversiones automáticas.</p>
-<section class="card"><div class="eyebrow">MONTO A CONVERTIR</div><div class="input-wrap"><span class="currency">VES</span><input id="ves" type="number" inputmode="decimal" min="0" step="any" placeholder="0,00" autocomplete="off"></div><div class="hint">Introduce el monto en bolívares venezolanos.</div></section>
-<section class="result"><div class="eyebrow">RESULTADO ESTIMADO EN PESOS COLOMBIANOS</div><div class="amount" id="copResult">$ 0 COP</div><small id="usdResult">Equivalente: US$ 0,00</small></section>
-<section class="card"><div class="eyebrow">DETALLE DEL CÁLCULO</div><div class="breakdown"><span>1. Bolívares ÷ tasa BCV</span><strong id="stepUsd">US$ 0,00</strong></div><div class="breakdown"><span>2. Dólares × tasa USD/COP</span><strong id="stepCop">$ 0 COP</strong></div></section>
-<section class="card"><div class="rates-head"><h2>Tasas de referencia</h2><button class="refresh" id="refresh">↻ Actualizar</button></div>
-<div class="rate"><div class="rate-line"><label for="bcvRate">BCV · VES por 1 USD</label><input id="bcvRate" type="number" inputmode="decimal" step="any" min="0" placeholder="Tasa BCV"></div><div class="source" id="bcvMeta">Esperando consulta…</div><div class="friday-choice" id="fridayChoice"><p><strong>Actualización especial de los viernes.</strong> Puedes conservar la tasa vigente para el viernes o utilizar la nueva tasa publicada para el lunes.</p><div class="friday-buttons"><button type="button" id="useFriday">Tasa actual · viernes</button><button type="button" id="useMonday">Tasa actualizada · lunes</button></div><div class="friday-caption" id="fridayMeta"></div></div></div>
-<div class="rate"><div class="rate-line"><label for="copRate">TRM · COP por 1 USD</label><input id="copRate" type="number" inputmode="decimal" step="any" min="0" placeholder="Tasa USD/COP"></div><div class="source" id="copMeta">Esperando consulta…</div></div>
-<div class="status" id="status">Las tasas se consultan automáticamente al abrir y al pulsar Actualizar. Puedes editarlas manualmente.</div>
-<div class="actions"><button class="btn" id="resetRates">Usar tasas automáticas</button><button class="btn primary" id="copy">Copiar resultado</button></div></section>
-<p class="note">La tasa BCV se obtiene de un servicio público de terceros que publica datos atribuidos al Banco Central de Venezuela. La TRM es una referencia oficial diaria de Colombia, no necesariamente el precio de compra/venta de una casa de cambio. Verifica las tasas y sus fechas antes de realizar operaciones. Las tasas guardadas permiten calcular sin conexión.</p>
-<div class="footer">Calculadora personal · Los cálculos se realizan en este dispositivo.</div>
+<body><main>
+<div class="top"><div class="brand">Calculadora de divisas</div><div class="pill" id="connection">Conectando…</div></div>
+<h1>Bolívares a dólares y pesos</h1><p class="sub">Una sola entrada. Dos referencias automáticas para tus compras y verificaciones.</p>
+<div class="modes"><button class="mode active" id="modeShop">🛍️ Compras · COP</button><button class="mode" id="modeFuel">⛽ Gasolina · USD</button></div>
+<section class="card"><div class="eyebrow">IMPORTE EN BOLÍVARES · VES</div><div class="entry"><b>Bs.</b><input id="ves" type="number" inputmode="decimal" min="0" step="any" placeholder="0,00"></div><div class="hint">Introduce el importe que aparece en el comercio o en el surtidor.</div></section>
+<section class="result" id="mainResult"><div class="eyebrow" id="mainLabel">ESTIMACIÓN EN PESOS COLOMBIANOS</div><div class="big" id="mainValue">$ 0 COP</div><small id="mainDetail">Referencia automática USD/COP · no es una cotización Mastercard</small></section>
+<div class="secondary">
+ <section class="mini"><div class="eyebrow">EQUIVALENTE EN USD</div><div class="value" id="usdValue">US$ 0,00</div><div class="meta">Según tasa BCV</div></section>
+ <section class="mini"><div class="eyebrow">EQUIVALENTE EN COP</div><div class="value" id="copValue">$ 0</div><div class="meta">Referencia automática</div></section>
+</div>
+<section class="card">
+ <div class="row"><strong>Fuentes y tasas</strong><button class="refresh" id="refresh">↻ Actualizar</button></div>
+ <div class="rate"><div class="row"><span>BCV · VES por USD</span><strong id="bcvRate">—</strong></div><div class="meta" id="bcvMeta">Consultando fuente…</div>
+ <div class="friday" id="fridayBox"><p>Publicación especial de viernes. Selecciona la tasa con la que quieres calcular.</p><button class="btn" id="fridayCurrent">Usar tasa vigente del viernes</button><button class="btn" id="mondayNext">Usar nueva tasa del lunes</button><div class="meta" id="fridayMeta"></div></div></div>
+ <div class="rate"><div class="row"><span>USD/COP · referencia de mercado</span><strong id="copRate">—</strong></div><div class="meta" id="copMeta">Consultando fuente…</div></div>
+ <div class="status" id="status">Las tasas se actualizan al abrir y al pulsar Actualizar.</div>
+ <div class="actions"><button class="btn" id="copy">Copiar resultado</button><button class="btn primary" id="reset">Restablecer tasas</button></div>
+</section>
+<p class="foot">IMPORTANTE: la conversión COP utiliza una referencia automática de mercado USD/COP combinada con la tasa BCV. No es una cotización Mastercard ni garantiza el cargo final de Nu. Para obtener la tasa Mastercard exacta se necesita acceso autorizado a su servicio. El BCV Today es un proveedor independiente que replica datos publicados por el BCV; verifica siempre la Fecha Valor. Fuentes: <a href="https://bcv.today/api/" target="_blank" rel="noopener">API BCV Today</a> · <a href="https://www.exchangerate-api.com/docs/free" target="_blank" rel="noopener">ExchangeRate-API</a>.</p>
+<div class="meta" style="text-align:center">Calculadora personal · caché local para uso sin conexión</div>
 </main>
 <script>
-const $=id=>document.getElementById(id);
-const STORE='vesCopCalc_v1';
-let data={bcv:null,cop:null,bcvDate:'',copDate:'',bcvSource:'',copSource:'',savedAt:null,bcvFriday:null,bcvFridayDate:'',bcvMonday:null,bcvMondayDate:'',bcvMode:'friday'};
-let manual={bcv:false,cop:false};
-const fmt=(n,dec=2)=>new Intl.NumberFormat('es-CO',{minimumFractionDigits:dec,maximumFractionDigits:dec}).format(n);
-const valid=n=>Number.isFinite(n)&&n>0;
-function load(){try{const s=JSON.parse(localStorage.getItem(STORE)||'null');if(s&&typeof s==='object'){data={...data,...s};if(valid(data.bcv))$('bcvRate').value=data.bcv;if(valid(data.cop))$('copRate').value=data.cop;}}catch(e){} }
-function persist(){try{localStorage.setItem(STORE,JSON.stringify(data));}catch(e){}}
-function render(){const ves=Number($('ves').value)||0, b=Number($('bcvRate').value), c=Number($('copRate').value);const usd=valid(b)?ves/b:0, cop=valid(c)?usd*c:0;$('copResult').textContent='$ '+fmt(cop,0)+' COP';$('usdResult').textContent='Equivalente: US$ '+fmt(usd,2);$('stepUsd').textContent='US$ '+fmt(usd,2);$('stepCop').textContent='$ '+fmt(cop,0)+' COP';}
-function setStatus(msg,error=false){$('status').textContent=msg;$('status').className='status'+(error?' error':'');}
-function updateConnection(){const online=navigator.onLine;$('connection').textContent=online?'● En línea':'● Sin conexión';$('connection').style.color=online?'var(--accent)':'#ffca83';}
-function setRate(kind,value,meta){if(!valid(Number(value)))throw new Error('La tasa recibida no es válida.');data[kind]=Number(value);if(kind==='bcv'){data.bcvDate=meta.date||'';data.bcvSource=meta.source||'BCV Today';}else{data.copDate=meta.date||'';data.copSource=meta.source||'TRM Colombia';}if(!manual[kind])$(kind==='bcv'?'bcvRate':'copRate').value=Number(value);}
-function caracasNow(){
- const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Caracas',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
- const v=Object.fromEntries(parts.map(p=>[p.type,p.value]));
- return {date:`${v.year}-${v.month}-${v.day}`,weekday:v.weekday,hour:Number(v.hour),minute:Number(v.minute)};
-}
-function shiftDate(iso,days){const d=new Date(iso+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+days);return d.toISOString().slice(0,10);}
-function chooseBCV(mode){
- if(mode==='monday' && valid(data.bcvMonday)){
-  data.bcvMode='monday';data.bcv=data.bcvMonday;data.bcvDate=data.bcvMondayDate;
- }else if(valid(data.bcvFriday)){
-  data.bcvMode='friday';data.bcv=data.bcvFriday;data.bcvDate=data.bcvFridayDate;
- }
- manual.bcv=false;$('bcvRate').value=data.bcv;persist();render();updateFridayChoice();
-}
-function updateFridayChoice(){
- const visible=valid(data.bcvFriday)&&valid(data.bcvMonday);
- $('fridayChoice').classList.toggle('show',visible);
- $('useFriday').classList.toggle('active',data.bcvMode!=='monday');
- $('useMonday').classList.toggle('active',data.bcvMode==='monday');
- if(visible)$('fridayMeta').textContent=`Vigencia viernes: ${data.bcvFridayDate} · Vigencia nueva: ${data.bcvMondayDate}. La elección se conserva en este dispositivo.`;
-}
+const $=id=>document.getElementById(id), STORE='vesCop_v3';
+let state={bcv:null,bcvDate:'',cop:null,copDate:'',bcvFriday:null,bcvFridayDate:'',bcvMonday:null,bcvMondayDate:'',bcvChoice:'friday',savedAt:null,sourceCop:'',sourceBcv:''};
+let mode='shop';
+const valid=n=>Number.isFinite(Number(n))&&Number(n)>0;
+const fmt=(n,d=2)=>new Intl.NumberFormat('es-CO',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n);
+function caracas(){let p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Caracas',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());let o=Object.fromEntries(p.map(x=>[x.type,x.value]));return {date:`${o.year}-${o.month}-${o.day}`,day:o.weekday,hour:+o.hour,minute:+o.minute};}
+function datePlus(s,n){let d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(state));}catch(e){}}
+function load(){try{let x=JSON.parse(localStorage.getItem(STORE)||'null');if(x)state={...state,...x};}catch(e){}}
+function calc(){let v=Number($('ves').value)||0,usd=valid(state.bcv)?v/state.bcv:0,cop=usd*(valid(state.cop)?state.cop:0);$('usdValue').textContent='US$ '+fmt(usd,2);$('copValue').textContent='$ '+fmt(cop,0);if(mode==='shop'){$('mainLabel').textContent='ESTIMACIÓN EN PESOS COLOMBIANOS';$('mainValue').textContent='$ '+fmt(cop,0)+' COP';$('mainDetail').textContent='Referencia automática USD/COP · no es una cotización Mastercard';}else{$('mainLabel').textContent='EQUIVALENTE EN DÓLARES SEGÚN BCV';$('mainValue').textContent='US$ '+fmt(usd,2);$('mainDetail').textContent='Tasa BCV con Fecha Valor '+(state.bcvDate||'no disponible');}}
+function status(t,kind=''){ $('status').textContent=t;$('status').className='status '+kind;}
+function showRates(){ $('bcvRate').textContent=valid(state.bcv)?fmt(state.bcv,4)+' Bs.':'—';$('copRate').textContent=valid(state.cop)?fmt(state.cop,2)+' COP':'—';$('bcvMeta').textContent=state.bcvDate?'Fecha Valor: '+state.bcvDate+' · '+state.sourceBcv:'Sin fecha de vigencia';$('copMeta').textContent=state.copDate?'Actualización: '+state.copDate+' · '+state.sourceCop:'Sin fecha de actualización';$('fridayBox').classList.toggle('show',valid(state.bcvFriday)&&valid(state.bcvMonday));$('fridayCurrent').classList.toggle('primary',state.bcvChoice!=='monday');$('mondayNext').classList.toggle('primary',state.bcvChoice==='monday');$('fridayMeta').textContent='Viernes: '+state.bcvFridayDate+' · Próxima vigencia: '+state.bcvMondayDate;}
+async function json(url){let r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return r.json();}
 async function fetchBCV(){
- const r=await fetch('https://bcv.today/api/v1/rate.json',{cache:'no-store'});if(!r.ok)throw new Error('BCV: HTTP '+r.status);const j=await r.json();
- const latest=Number(j.USD), latestDate=j.effective_date||j.date;
- if(!valid(latest))throw new Error('BCV: tasa recibida no válida.');
- const now=caracasNow();
- // Solo los viernes, después de las 17:00 en Caracas, se ofrece elegir entre
- // la tasa con vigencia del viernes y la recién publicada para el lunes.
- if(now.weekday==='Fri' && (now.hour>17 || (now.hour===17 && now.minute>=0)) && latestDate>now.date){
-  let fridaySnapshot=null;
-  for(let back=1;back<=4;back++){
-   try{const day=shiftDate(now.date,-back);const hr=await fetch(`https://bcv.today/api/v1/history/${day}.json`,{cache:'no-store'});if(!hr.ok)continue;const h=await hr.json();const eff=h.effective_date||h.date;if(valid(Number(h.USD))&&eff===now.date){fridaySnapshot=h;break;}}
-   catch(e){}
-  }
-  if(fridaySnapshot){
-   if(data.bcvFridayDate!==now.date)data.bcvMode='friday';
-   data.bcvFriday=Number(fridaySnapshot.USD);data.bcvFridayDate=fridaySnapshot.effective_date||fridaySnapshot.date;
-   data.bcvMonday=latest;data.bcvMondayDate=latestDate;
-   if(data.bcvMode!=='monday')data.bcvMode='friday';
-   const selected=data.bcvMode==='monday'?data.bcvMonday:data.bcvFriday;
-   data.bcv=selected;data.bcvDate=data.bcvMode==='monday'?data.bcvMondayDate:data.bcvFridayDate;
-   if(!manual.bcv)$('bcvRate').value=selected;
-   $('bcvMeta').textContent=`Tasa seleccionada: ${data.bcvMode==='monday'?'lunes':'viernes'} · Vigencia: ${data.bcvDate} · Fuente: BCV Today`;
-   updateFridayChoice();return;
-  }
+ const now=caracas(), latest=await json('https://bcv.today/api/v1/rate.json');
+ if(!valid(latest.USD))throw Error('Respuesta BCV sin tasa USD válida');
+ const history=await json('https://bcv.today/api/v1/history.json').catch(()=>[]);
+ const rows=Array.isArray(history)?history:(history.history||history.data||[]);
+ const future=rows.filter(x=>valid(x.USD)&&x.effective_date>now.date).sort((a,b)=>a.effective_date.localeCompare(b.effective_date));
+ const past=rows.filter(x=>valid(x.USD)&&x.effective_date<=now.date).sort((a,b)=>b.effective_date.localeCompare(a.effective_date));
+ const isFri=now.day==='Fri'&&(now.hour>=17);
+ if(isFri){
+   let fri=past.find(x=>x.effective_date===now.date)||latest;
+   let mon=future[0];
+   if(mon){state.bcvFriday=+fri.USD;state.bcvFridayDate=fri.effective_date||fri.date;state.bcvMonday=+mon.USD;state.bcvMondayDate=mon.effective_date; if(!state.bcvChoice)state.bcvChoice='friday';}
+   else {state.bcvFriday=null;state.bcvMonday=null;status('La tasa del viernes está disponible, pero la fuente todavía no publica una Fecha Valor futura. Se mantiene la tasa vigente.', 'warn');}
+   let selected=state.bcvChoice==='monday'&&valid(state.bcvMonday)?state.bcvMonday:state.bcvFriday||+latest.USD;
+   state.bcv=selected;state.bcvDate=state.bcvChoice==='monday'&&state.bcvMondayDate?state.bcvMondayDate:(state.bcvFridayDate||latest.effective_date);state.sourceBcv='BCV Today · datos publicados por BCV';
+ }else{
+   state.bcvFriday=null;state.bcvMonday=null;state.bcvChoice='auto';
+   // Latest endpoint can already point to the next business day; effective_date is authoritative.
+   state.bcv=+latest.USD;state.bcvDate=latest.effective_date||latest.date;state.sourceBcv='BCV Today · datos publicados por BCV';
  }
- // Sábados, domingos y días ordinarios: se usa automáticamente la última tasa
- // cuya fecha efectiva publica la API, sin mostrar selector.
- data.bcvFriday=null;data.bcvMonday=null;data.bcvMode='auto';
- setRate('bcv',latest,{date:latestDate,source:'BCV Today · datos atribuidos al BCV'});
- $('bcvMeta').textContent='Vigencia: '+(latestDate||'fecha no indicada')+' · Fuente: bcv.today';
- updateFridayChoice();
 }
-async function fetchCOP(){const r=await fetch('https://api.dolarencolombia.co/v1/trm/latest',{cache:'no-store'});if(!r.ok)throw new Error('TRM: HTTP '+r.status);const j=await r.json();setRate('cop',j.valor,{date:j.fecha,source:j.fuente||'Superfinanciera / datos.gov.co'});$('copMeta').textContent='Fecha: '+(j.fecha||'no indicada')+' · Fuente: '+(j.fuente||'TRM Colombia');}
-async function refreshRates(){if(!navigator.onLine){setStatus('Estás sin conexión. Se utilizarán las últimas tasas guardadas o las que introduzcas manualmente.',true);render();return;}$('refresh').disabled=true;$('refresh').textContent='Consultando…';let errors=[];const tasks=[['bcv',fetchBCV],['cop',fetchCOP]];await Promise.all(tasks.map(async([name,fn])=>{try{await fn();}catch(e){errors.push(e.message);if(name==='bcv'&&!$('bcvMeta').textContent.includes('guardada'))$('bcvMeta').textContent='Sin actualización · tasa guardada: '+(data.bcvDate||'fecha desconocida');if(name==='cop'&&!$('copMeta').textContent.includes('guardada'))$('copMeta').textContent='Sin actualización · tasa guardada: '+(data.copDate||'fecha desconocida');}}));data.savedAt=new Date().toISOString();persist();$('refresh').disabled=false;$('refresh').textContent='↻ Actualizar';render();if(errors.length){setStatus('No se pudieron actualizar todas las tasas: '+errors.join(' · ')+'. Se conserva la última tasa disponible.',true);}else{setStatus('Tasas actualizadas correctamente. Consulta las fechas de vigencia antes de operar.');}}
-$('ves').addEventListener('input',render);
-$('bcvRate').addEventListener('input',()=>{manual.bcv=true;render();});$('copRate').addEventListener('input',()=>{manual.cop=true;render();});
-$('refresh').addEventListener('click',refreshRates);$('useFriday').addEventListener('click',()=>chooseBCV('friday'));$('useMonday').addEventListener('click',()=>chooseBCV('monday'));
-$('resetRates').addEventListener('click',()=>{manual={bcv:false,cop:false};if(valid(data.bcv))$('bcvRate').value=data.bcv;if(valid(data.cop))$('copRate').value=data.cop;render();refreshRates();});
-$('copy').addEventListener('click',async()=>{const ves=Number($('ves').value)||0,b=Number($('bcvRate').value),c=Number($('copRate').value);if(!ves||!valid(b)||!valid(c)){setStatus('Introduce un monto y asegúrate de tener ambas tasas.',true);return;}const usd=ves/b,cop=usd*c;const txt=`${fmt(ves,2)} VES = ${fmt(usd,2)} USD = ${fmt(cop,0)} COP\nBCV: ${fmt(b,4)} VES/USD (${data.bcvDate||'fecha no indicada'})\nTRM: ${fmt(c,2)} COP/USD (${data.copDate||'fecha no indicada'})`;try{await navigator.clipboard.writeText(txt);setStatus('Resultado y tasas copiados.');}catch(e){setStatus(txt);}});
-window.addEventListener('online',()=>{updateConnection();refreshRates();});window.addEventListener('offline',updateConnection);
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
-load();updateConnection();render();if(valid(data.bcv))$('bcvMeta').textContent='Última tasa guardada · vigencia: '+(data.bcvDate||'desconocida');updateFridayChoice();if(valid(data.cop))$('copMeta').textContent='Última tasa guardada · fecha: '+(data.copDate||'desconocida');if(valid(data.bcv)&&valid(data.cop))setStatus('Se cargaron las últimas tasas guardadas. Actualizando…');refreshRates();
+async function fetchCOP(){
+ const j=await json('https://open.er-api.com/v6/latest/USD');
+ if(j.result!=='success'||!valid(j.rates?.COP))throw Error('La fuente USD/COP no devolvió una tasa válida');
+ state.cop=+j.rates.COP;state.copDate=(j.time_last_update_utc||'').replace(' 00:00:00 +0000','');state.sourceCop='ExchangeRate-API · tipo medio de mercado'; 
+}
+async function refresh(){
+ $('refresh').disabled=true;$('refresh').textContent='Consultando…';let errors=[];
+ await Promise.all([fetchBCV().catch(e=>errors.push('BCV: '+e.message)),fetchCOP().catch(e=>errors.push('USD/COP: '+e.message))]);
+ state.savedAt=new Date().toISOString();save();showRates();calc();$('refresh').disabled=false;$('refresh').textContent='↻ Actualizar';
+ if(errors.length)status('No se actualizaron todas las fuentes: '+errors.join(' · ')+'. Se conservan las últimas tasas guardadas si existen.','error');
+ else status('Tasas consultadas. BCV: Fecha Valor '+state.bcvDate+'. USD/COP: referencia de mercado, no Mastercard.');
+}
+$('ves').addEventListener('input',calc);
+$('modeShop').onclick=()=>{mode='shop';$('modeShop').classList.add('active');$('modeFuel').classList.remove('active');calc();};
+$('modeFuel').onclick=()=>{mode='fuel';$('modeFuel').classList.add('active');$('modeShop').classList.remove('active');calc();};
+$('refresh').onclick=refresh;
+$('fridayCurrent').onclick=()=>{state.bcvChoice='friday';state.bcv=state.bcvFriday;state.bcvDate=state.bcvFridayDate;save();showRates();calc();};
+$('mondayNext').onclick=()=>{if(!valid(state.bcvMonday))return;state.bcvChoice='monday';state.bcv=state.bcvMonday;state.bcvDate=state.bcvMondayDate;save();showRates();calc();};
+$('reset').onclick=()=>{state.bcvChoice='friday';refresh();};
+$('copy').onclick=async()=>{let v=+($('ves').value||0);if(!v){status('Introduce primero un importe en bolívares.','warn');return;}let usd=v/state.bcv,cop=usd*state.cop;let s=`${fmt(v,2)} VES\n${fmt(usd,2)} USD (BCV ${state.bcvDate})\n${fmt(cop,0)} COP (referencia USD/COP, no Mastercard)`;try{await navigator.clipboard.writeText(s);status('Conversión copiada.');}catch(e){status(s);}};
+function online(){ $('connection').textContent=navigator.onLine?'En línea':'Sin conexión';$('connection').style.color=navigator.onLine?'var(--green)':'var(--amber)';}
+load();if(valid(state.bcv))$('bcvMeta').textContent='Última tasa guardada · '+state.bcvDate;if(valid(state.cop))$('copMeta').textContent='Última referencia guardada · '+state.copDate;showRates();calc();online();if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));refresh();addEventListener('online',()=>{online();refresh();});addEventListener('offline',online);
 </script></body></html>
