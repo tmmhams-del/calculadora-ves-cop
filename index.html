@@ -16,13 +16,13 @@ h1{font-size:27px;line-height:1.1;margin:0 0 6px}.sub{color:var(--muted);font-si
 .row{display:flex;justify-content:space-between;gap:10px;align-items:center}.row strong{font-variant-numeric:tabular-nums}.rate{padding:11px 0;border-bottom:1px solid var(--line)}.rate:last-child{border:0}.status{font-size:11px;line-height:1.5;color:var(--muted);margin-top:12px}.status.error{color:var(--red)}.status.warn{color:var(--amber)}
 button{cursor:pointer}.refresh,.btn{border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--text);padding:10px 12px;font-weight:700}.actions{display:flex;gap:8px;margin-top:12px}.actions button{flex:1}.primary{background:var(--green);color:#092016;border-color:var(--green)}
 .foot{font-size:10px;line-height:1.55;color:#8291a7;margin:18px 3px}.tag{font-size:10px;color:var(--green);font-weight:800}.badge{font-size:10px;border:1px solid var(--line);padding:5px 8px;border-radius:99px;color:var(--muted)}
-.friday{display:none;background:#332914;border:1px solid #806b3e;border-radius:13px;padding:12px;margin-top:10px}.friday.show{display:block}.friday p{font-size:11px;color:#f2d9a0;margin:0 0 9px}.friday button{width:100%;margin-top:6px}
+.friday{display:none;background:#332914;border:1px solid #806b3e;border-radius:13px;padding:12px;margin-top:10px}.friday.show{display:block}.friday p{font-size:11px;color:#f2d9a0;margin:0 0 9px}.friday button{width:100%;margin-top:6px}.entry-tools{display:flex;justify-content:flex-end;margin-top:9px}.switch-direction{border:1px solid #46617d;background:#1a2940;color:#dce8f5;border-radius:9px;padding:7px 10px;font-size:11px;font-weight:750}.switch-direction[hidden]{display:none}
 </style></head>
 <body><main>
 <div class="top"><div class="brand">Calculadora de divisas</div><div class="pill" id="connection">Conectando…</div></div>
-<h1>Bolívares a dólares y pesos</h1><p class="sub">Una sola entrada. Dos referencias automáticas para tus compras y verificaciones.</p>
-<div class="modes"><button class="mode active" id="modeShop">🛍️ Compras · COP</button><button class="mode" id="modeFuel">⛽ Gasolina · USD</button></div>
-<section class="card"><div class="eyebrow">IMPORTE EN BOLÍVARES · VES</div><div class="entry"><b>Bs.</b><input id="ves" type="number" inputmode="decimal" min="0" step="any" placeholder="0,00"></div><div class="hint">Introduce el importe que aparece en el comercio o en el surtidor.</div></section>
+<h1>Calculadora de divisas</h1><p class="sub">Conversión entre bolívares, dólares y pesos colombianos con tasas automáticas.</p>
+<div class="modes"><button class="mode active" id="modeShop">🛍️ Compras · COP</button><button class="mode" id="modeFuel">Tasa · USD ⇄ VES</button></div>
+<section class="card"><div class="eyebrow" id="inputLabel">IMPORTE EN BOLÍVARES · VES</div><div class="entry"><b id="inputCurrency">Bs.</b><input id="ves" type="number" inputmode="decimal" min="0" step="any" placeholder="0,00"></div><div class="entry-tools"><button type="button" class="switch-direction" id="directionToggle" hidden>Cambiar a VES → USD</button></div><div class="hint" id="inputHint">Introduce el importe que aparece en el comercio.</div></section>
 <section class="result" id="mainResult"><div class="eyebrow" id="mainLabel">ESTIMACIÓN EN PESOS COLOMBIANOS</div><div class="big" id="mainValue">$ 0 COP</div><small id="mainDetail">Referencia automática USD/COP · no es una cotización Mastercard</small></section>
 <div class="secondary">
  <section class="mini"><div class="eyebrow">EQUIVALENTE EN USD</div><div class="value" id="usdValue">US$ 0,00</div><div class="meta">Según tasa BCV</div></section>
@@ -40,16 +40,51 @@ button{cursor:pointer}.refresh,.btn{border:1px solid var(--line);border-radius:1
 <div class="meta" style="text-align:center">Calculadora personal · caché local para uso sin conexión</div>
 </main>
 <script>
-const $=id=>document.getElementById(id), STORE='vesCop_v3';
+const $=id=>document.getElementById(id), STORE='vesCop_v4';
 let state={bcv:null,bcvDate:'',cop:null,copDate:'',bcvFriday:null,bcvFridayDate:'',bcvMonday:null,bcvMondayDate:'',bcvChoice:'friday',savedAt:null,sourceCop:'',sourceBcv:''};
-let mode='shop';
+let mode='shop',direction='usdToVes';
 const valid=n=>Number.isFinite(Number(n))&&Number(n)>0;
 const fmt=(n,d=2)=>new Intl.NumberFormat('es-CO',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n);
 function caracas(){let p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Caracas',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());let o=Object.fromEntries(p.map(x=>[x.type,x.value]));return {date:`${o.year}-${o.month}-${o.day}`,day:o.weekday,hour:+o.hour,minute:+o.minute};}
 function datePlus(s,n){let d=new Date(s+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
 function save(){try{localStorage.setItem(STORE,JSON.stringify(state));}catch(e){}}
 function load(){try{let x=JSON.parse(localStorage.getItem(STORE)||'null');if(x)state={...state,...x};}catch(e){}}
-function calc(){let v=Number($('ves').value)||0,usd=valid(state.bcv)?v/state.bcv:0,cop=usd*(valid(state.cop)?state.cop:0);$('usdValue').textContent='US$ '+fmt(usd,2);$('copValue').textContent='$ '+fmt(cop,0);if(mode==='shop'){$('mainLabel').textContent='ESTIMACIÓN EN PESOS COLOMBIANOS';$('mainValue').textContent='$ '+fmt(cop,0)+' COP';$('mainDetail').textContent='Referencia automática USD/COP · no es una cotización Mastercard';}else{$('mainLabel').textContent='EQUIVALENTE EN DÓLARES SEGÚN BCV';$('mainValue').textContent='US$ '+fmt(usd,2);$('mainDetail').textContent='Tasa BCV con Fecha Valor '+(state.bcvDate||'no disponible');}}
+function calc(){
+ let amount=Number($('ves').value)||0,usd=0,ves=0,cop=0;
+ if(mode==='shop'){
+   ves=amount; usd=valid(state.bcv)?ves/state.bcv:0; cop=usd*(valid(state.cop)?state.cop:0);
+   $('inputLabel').textContent='IMPORTE EN BOLÍVARES · VES';
+   $('inputCurrency').textContent='Bs.';
+   $('inputHint').textContent='Introduce el importe que aparece en el comercio.';
+   $('directionToggle').hidden=true;
+   $('mainLabel').textContent='ESTIMACIÓN EN PESOS COLOMBIANOS';
+   $('mainValue').textContent='$ '+fmt(cop,0)+' COP';
+   $('mainDetail').textContent='Referencia automática USD/COP · no es una cotización Mastercard';
+ }else{
+   $('directionToggle').hidden=false;
+   if(direction==='usdToVes'){
+     usd=amount; ves=usd*(valid(state.bcv)?state.bcv:0);
+     $('inputLabel').textContent='IMPORTE EN DÓLARES · USD';
+     $('inputCurrency').textContent='US$';
+     $('inputHint').textContent='Introduce dólares para convertirlos a bolívares.';
+     $('directionToggle').textContent='Cambiar a VES → USD';
+     $('mainLabel').textContent='EQUIVALENTE EN BOLÍVARES · VES';
+     $('mainValue').textContent='Bs. '+fmt(ves,2);
+   }else{
+     ves=amount; usd=valid(state.bcv)?ves/state.bcv:0;
+     $('inputLabel').textContent='IMPORTE EN BOLÍVARES · VES';
+     $('inputCurrency').textContent='Bs.';
+     $('inputHint').textContent='Introduce bolívares para convertirlos a dólares.';
+     $('directionToggle').textContent='Cambiar a USD → VES';
+     $('mainLabel').textContent='EQUIVALENTE EN DÓLARES · USD';
+     $('mainValue').textContent='US$ '+fmt(usd,2);
+   }
+   cop=usd*(valid(state.cop)?state.cop:0);
+   $('mainDetail').textContent='Conversión según tasa BCV · Fecha Valor '+(state.bcvDate||'no disponible');
+ }
+ $('usdValue').textContent='US$ '+fmt(usd,2);
+ $('copValue').textContent='$ '+fmt(cop,0);
+}
 function status(t,kind=''){ $('status').textContent=t;$('status').className='status '+kind;}
 function showRates(){ $('bcvRate').textContent=valid(state.bcv)?fmt(state.bcv,4)+' Bs.':'—';$('copRate').textContent=valid(state.cop)?fmt(state.cop,2)+' COP':'—';$('bcvMeta').textContent=state.bcvDate?'Fecha Valor: '+state.bcvDate+' · '+state.sourceBcv:'Sin fecha de vigencia';$('copMeta').textContent=state.copDate?'Actualización: '+state.copDate+' · '+state.sourceCop:'Sin fecha de actualización';$('fridayBox').classList.toggle('show',valid(state.bcvFriday)&&valid(state.bcvMonday));$('fridayCurrent').classList.toggle('primary',state.bcvChoice!=='monday');$('mondayNext').classList.toggle('primary',state.bcvChoice==='monday');$('fridayMeta').textContent='Viernes: '+state.bcvFridayDate+' · Próxima vigencia: '+state.bcvMondayDate;}
 async function json(url){let r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return r.json();}
@@ -87,13 +122,14 @@ async function refresh(){
  else status('Tasas consultadas. BCV: Fecha Valor '+state.bcvDate+'. USD/COP: referencia de mercado, no Mastercard.');
 }
 $('ves').addEventListener('input',calc);
-$('modeShop').onclick=()=>{mode='shop';$('modeShop').classList.add('active');$('modeFuel').classList.remove('active');calc();};
-$('modeFuel').onclick=()=>{mode='fuel';$('modeFuel').classList.add('active');$('modeShop').classList.remove('active');calc();};
+$('modeShop').onclick=()=>{mode='shop';$('modeShop').classList.add('active');$('modeFuel').classList.remove('active');$('ves').value='';calc();};
+$('modeFuel').onclick=()=>{mode='fuel';direction='usdToVes';$('modeFuel').classList.add('active');$('modeShop').classList.remove('active');$('ves').value='';calc();};
 $('refresh').onclick=refresh;
+$('directionToggle').onclick=()=>{direction=direction==='usdToVes'?'vesToUsd':'usdToVes';$('ves').value='';calc();$('ves').focus();};
 $('fridayCurrent').onclick=()=>{state.bcvChoice='friday';state.bcv=state.bcvFriday;state.bcvDate=state.bcvFridayDate;save();showRates();calc();};
 $('mondayNext').onclick=()=>{if(!valid(state.bcvMonday))return;state.bcvChoice='monday';state.bcv=state.bcvMonday;state.bcvDate=state.bcvMondayDate;save();showRates();calc();};
 $('reset').onclick=()=>{state.bcvChoice='friday';refresh();};
-$('copy').onclick=async()=>{let v=+($('ves').value||0);if(!v){status('Introduce primero un importe en bolívares.','warn');return;}let usd=v/state.bcv,cop=usd*state.cop;let s=`${fmt(v,2)} VES\n${fmt(usd,2)} USD (BCV ${state.bcvDate})\n${fmt(cop,0)} COP (referencia USD/COP, no Mastercard)`;try{await navigator.clipboard.writeText(s);status('Conversión copiada.');}catch(e){status(s);}};
+$('copy').onclick=async()=>{let amount=+($('ves').value||0);if(!amount){status(mode==='shop'||direction==='vesToUsd'?'Introduce primero un importe en bolívares.':'Introduce primero un importe en dólares.','warn');return;}let usd=mode==='shop'||direction==='vesToUsd'?amount/state.bcv:amount,ves=mode==='shop'||direction==='vesToUsd'?amount:amount*state.bcv,cop=usd*state.cop;let s=`${fmt(usd,2)} USD\n${fmt(ves,2)} VES (BCV ${state.bcvDate})\n${fmt(cop,0)} COP (referencia USD/COP, no Mastercard)`;try{await navigator.clipboard.writeText(s);status('Conversión copiada.');}catch(e){status(s);}};
 function online(){ $('connection').textContent=navigator.onLine?'En línea':'Sin conexión';$('connection').style.color=navigator.onLine?'var(--green)':'var(--amber)';}
 load();if(valid(state.bcv))$('bcvMeta').textContent='Última tasa guardada · '+state.bcvDate;if(valid(state.cop))$('copMeta').textContent='Última referencia guardada · '+state.copDate;showRates();calc();online();if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));refresh();addEventListener('online',()=>{online();refresh();});addEventListener('offline',online);
 </script></body></html>
